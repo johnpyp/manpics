@@ -49,22 +49,17 @@
       </div>
     </div>
     <script>
-      const pics = {
-        prefix: "./pics/",
-        images: ["oldman.jpeg", "oldman2.jpeg"],
-      };
       new Vue({
         el: "#app",
         data: {
           manPics: null,
         },
         async mounted() {
-          // This is the proper thing
-          // const pics = pics.images
-
-          // This just repeats the pics by 20
-          const pics = [...Array(20)].map(() => pics.images);
-          this.manPics = pics.flat().map((url) => pics.prefix + url);
+          const apiUrl = "http://localhost:3000";
+          const { data, prefix } = await fetch(
+            `${apiUrl}/api/images`
+          ).then((r) => r.json());
+          this.manPics = data.map((path) => apiUrl + prefix + path);
         },
       });
     </script>
