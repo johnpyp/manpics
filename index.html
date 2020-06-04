@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+      }
+      .wrapper {
+        margin: 0rem 1rem;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      img {
+        width: 100%;
+      }
+
+      .navbar {
+        padding: 1.5rem 1rem;
+        background-color: #0088dd;
+        margin-bottom: 2rem;
+      }
+
+      .title {
+        font-size: 2rem;
+        color: white;
+      }
+    </style>
+    <title>Old Man Pics</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="navbar">
+        <div class="title">
+          Old Men Pics
+        </div>
+      </div>
+      <div v-if="manPics" class="wrapper">
+        <div v-for="(pic, i) in manPics" :key="i">
+          <img :src="pic" alt="Man pic" />
+        </div>
+      </div>
+    </div>
+    <script>
+      const pics = {
+        prefix: "./pics/",
+        images: ["oldman.jpeg", "oldman2.jpeg"],
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          manPics: null,
+        },
+        async mounted() {
+          // This is the proper thing
+          // const pics = pics.images
+
+          // This just repeats the pics by 20
+          const pics = [...Array(20)].map(() => pics.images);
+          this.manPics = pics.flat().map((url) => pics.prefix + url);
+        },
+      });
+    </script>
+  </body>
+</html>
